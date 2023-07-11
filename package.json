@@ -1,0 +1,51 @@
+{
+  "name": "corenodeutils",
+  "version": "1.0.0",
+  "description": "Utilities for NodeJS for security, stability and better developer experience",
+  "private": false,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "fixup": "npm run fixup:cjs && npm run fixup:mjs",
+    "build": "npm run clean && npm run build:cjs && npm run build:mjs && npm run fixup",
+    "test": "jest",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:mjs": "tsc -p tsconfig.json",
+    "fixup:cjs": "cp build-data/package.cjs.json dist/cjs/package.json",
+    "fixup:mjs": "cp build-data/package.mjs.json dist/mjs/package.json"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENCE",
+    "README",
+    "package.json"
+  ],
+  "keywords": [
+    "developbharat",
+    "nodejs",
+    "utilities",
+    "utils"
+  ],
+  "author": {
+    "name": "Develop Bharat",
+    "email": "team@developbharat.com",
+    "url": "https://github.com/developbharat"
+  },
+  "license": "GPLv3",
+  "peerDependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "jest": "^29.6.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  }
+}
