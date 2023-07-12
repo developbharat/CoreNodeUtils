@@ -14,7 +14,7 @@ export class Env<T> {
   public get<
     K extends keyof T,
     D = T[K] extends (...args: any) => any ? ReturnType<T[K]> : never,
-    R = D extends never ? never : D
+    R = D extends never ? never : D,
   >(key: K, defaultValue?: D): R {
     const envValue = this.envData.get(key as string);
 
@@ -27,7 +27,7 @@ export class Env<T> {
     // Throw Exception for key not found in .env file
     throw new EnvironmentException(
       `Environment variable ${key.toString()} doesn't exist in .env file.`,
-      ExceptionName.E_INVALID_ENV_CONTENTS
+      ExceptionName.E_INVALID_ENV_CONTENTS,
     );
   }
 }

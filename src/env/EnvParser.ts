@@ -18,12 +18,10 @@ export class EnvParser {
   private loadEnvFile(
     appRoot: string,
     envFilename: string = ".env",
-    optional: boolean = false
+    optional: boolean = false,
   ): { [key: string]: IEnvValue } {
     try {
-      const absPath = isAbsolute(envFilename)
-        ? envFilename
-        : join(appRoot, envFilename);
+      const absPath = isAbsolute(envFilename) ? envFilename : join(appRoot, envFilename);
 
       const contents = fs.readFileSync(absPath, "utf-8");
       return dotenv.parse(contents);
@@ -31,22 +29,16 @@ export class EnvParser {
       if (optional) return {};
 
       if (error.code === "ENOENT") {
-        throw new EnvironmentException(
-          `The "${envFilename}" file is missing`,
-          ExceptionName.E_MISSING_ENV_FILE
-        );
+        throw new EnvironmentException(`The "${envFilename}" file is missing`, ExceptionName.E_MISSING_ENV_FILE);
       } else {
-        throw new EnvironmentException(
-          (error as Error).message,
-          ExceptionName.E_INVALID_ENV_CONTENTS
-        );
+        throw new EnvironmentException((error as Error).message, ExceptionName.E_INVALID_ENV_CONTENTS);
       }
     }
   }
 
   private validateRules<T extends { [key: string]: IValidatorFn }>(
     rules: T,
-    env: { [key: string]: IEnvValue }
+    env: { [key: string]: IEnvValue },
   ): IEnvMap {
     const envData: IEnvMap = new Map();
 
@@ -59,17 +51,10 @@ export class EnvParser {
     return envData;
   }
 
-  public static rules<T extends { [key: string]: IValidatorFn }>(
-    rules: T,
-    options: IEnvParserOptions
-  ): Env<T> {
+  public static rules<T extends { [key: string]: IValidatorFn }>(rules: T, options: IEnvParserOptions): Env<T> {
     // Load Environment variables from .env file
     const parser = new EnvParser();
-    const parsedEnv = parser.loadEnvFile(
-      options.appRoot,
-      options.envFilename,
-      options.isEnvFileOptional
-    );
+    const parsedEnv = parser.loadEnvFile(options.appRoot, options.envFilename, options.isEnvFileOptional);
 
     // Validate all environment variables
     const envData = parser.validateRules(rules, parsedEnv);
