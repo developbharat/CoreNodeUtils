@@ -1,17 +1,15 @@
 import { Schema } from "../Schema";
 
 class CustomSchema extends Schema<string> {
-  constructor() {
-    super();
-  }
+  protected supports(_value: string): void {}
 
   trim(): this {
-    this.addToQueue((value) => value.trim());
+    this.addRule((value) => value.trim());
     return this;
   }
 
   isNumeric(): this {
-    this.addToQueue((value) => {
+    this.addRule((value) => {
       if (Number.isNaN(Number(value))) throw new Error("Number is not numeric.");
     });
 
@@ -20,21 +18,24 @@ class CustomSchema extends Schema<string> {
 }
 
 describe("Schema", () => {
-  it("returns same value with blank validation queue", () => {
-    expect(new Schema().validate({})).toEqual({});
-    expect(new Schema().validate(0)).toBe(0);
-    expect(new Schema().validate("")).toBe("");
-    expect(new Schema().validate([])).toEqual([]);
+  it("returns same value with blank validation queue", async () => {
+    class Test extends Schema<any> {
+      protected supports(_value: any): void | Promise<void> {}
+    }
+
+    expect(await new Test().execute({})).toEqual({});
+    expect(await new Test().execute(0)).toBe(0);
+    expect(await new Test().execute("")).toBe("");
+    expect(await new Test().execute([])).toEqual([]);
   });
 
-  it("returns processed value after validate.", () => {
-    expect(new CustomSchema().trim().validate("  100  ")).toBe("100");
-    expect(() => new CustomSchema().trim().isNumeric().validate(" 100 ")).not.toThrow();
-    expect(new CustomSchema().trim().isNumeric().validate(" 100 ")).toBe("100");
+  it("returns processed value after validate.", async () => {
+    expect(await new CustomSchema().trim().execute("  100  ")).toBe("100");
+    expect(await new CustomSchema().trim().isNumeric().execute(" 100 ")).toBe("100");
   });
 
-  it("throws error for invalid value", () => {
-    expect(() => new CustomSchema().trim().isNumeric().validate(" AVC ")).toThrow();
-    expect(new CustomSchema().trim().isNumeric().validate("100")).toBe("100");
+  it("throws error for invalid value", async () => {
+    expect(() => new CustomSchema().trim().isNumeric().execute(" AVC ")).rejects.toThrow();
+    expect(await new CustomSchema().trim().isNumeric().execute("100")).toBe("100");
   });
 });

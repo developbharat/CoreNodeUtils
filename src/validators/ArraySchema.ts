@@ -2,15 +2,12 @@ import { Schema } from "./Schema.js";
 import { SchemaException } from "../errors/SchemaException.js";
 
 export class ArraySchema<T> extends Schema<T[]> {
-  constructor() {
-    super();
-    this.addToQueue((value: T[]) => {
-      if (!Array.isArray(value)) throw new SchemaException(`${value} must be an array.`);
-    });
+  protected override supports(value: T[]): void | Promise<void> {
+    if (!Array.isArray(value)) throw new SchemaException(`Provided value ${value} is not supported.`);
   }
 
   min(length: number): this {
-    this.addToQueue((value: T[]) => {
+    this.addRule((value: T[]) => {
       if (value.length < length) throw new SchemaException(`${value} must contain atleast ${length} elements`);
     });
 
@@ -18,22 +15,22 @@ export class ArraySchema<T> extends Schema<T[]> {
   }
 
   max(length: number): this {
-    this.addToQueue((value: T[]) => {
+    this.addRule((value: T[]) => {
       if (value.length > length) throw new SchemaException(`${value} must contain maximum ${length} elements.`);
     });
 
     return this;
   }
 
-  of(schema: Schema<T>): this {
-    this.addToQueue((value: T[]) => {
+  of(schema: Schema): this {
+    this.addRule(async (values) => {
       const result: T[] = [];
-      for (const element of value) {
-        result.push(schema.validate(element));
+      for (let value of values) {
+        result.push(await schema.execute(value));
       }
-
       return result;
     });
+
     return this;
   }
 }
