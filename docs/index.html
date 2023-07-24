@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover"
+    />
+    <meta name="author" content="Develop Bharat" />
+    <meta name="description" content="Utilities for NodeJS for security, stability and better developer experience" />
+    <title>Welcome to CoreNodeUtils | Develop Bharat</title>
+
+    <!-- Themes (light + dark) -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: dark)"
+      href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: light)"
+      href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- Service Worker for PWA -->
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+
+    <script>
+      // Docsify Configuration
+      window.$docsify = {
+        loadSidebar: true,
+        subMaxLevel: 3,
+        themeable: {
+          readyTransition: false, // Don't show loading indicator
+          responsiveTables: true, // default
+        },
+        tabs: {
+          persist: true, // default
+          sync: true, // default
+          tabComments: true, // default
+          tabHeadings: true, // default
+        },
+      };
+    </script>
+
+    <!-- Required -->
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+    <!-- Recommended -->
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+    <script src="https://unpkg.com/docsify-copy-code@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  </body>
+</html>
