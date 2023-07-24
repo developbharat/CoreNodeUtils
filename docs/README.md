@@ -2,9 +2,9 @@
 
 ## Welcome to CoreNodeUtils | Develop Bharat
 
-Welcome to CoreNodeUtils, We provide NodeJS utilities for security, stability and better developer experience hosted at [corenodeutils.developbharat.com](//developbharat.github.io/corenodeutils). We Provide multiple utilities such as `.env` Validator, `Request, Response` Validation and Handling. We support both EcmaScript and CommonJS Modules.
+Welcome to CoreNodeUtils, We provide NodeJS utilities for security, stability and better developer experience hosted at [corenodeutils.developbharat.com](https://developbharat.github.io/CoreNodeUtils). We Provide multiple utilities such as `.env` Validator, `Request, Response` Validation and Handling. We support both EcmaScript and CommonJS Modules.
 
-- [Visit our Homepage](https://developbharat.github.io/corenodeutils) - for Live demo, documentation, and tutorials
+- [Visit our Homepage](https://developbharat.github.io/CoreNodeUtils) - for Live demo, documentation, and tutorials
 
 ## Features Overview
 
@@ -15,7 +15,7 @@ Welcome to CoreNodeUtils, We provide NodeJS utilities for security, stability an
 
 ## Installation & Options
 
-See the [documentation site](https://developbharat.github.io/corenodeutils) for details.
+See the [documentation site](https://developbharat.github.io/CoreNodeUtils) for details.
 
 ## Sponsorship
 
